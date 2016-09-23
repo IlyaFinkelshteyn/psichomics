@@ -129,7 +129,6 @@ queryFirehoseData <- function(format = "json", date = NULL, cohort = NULL,
 #'
 #' @return List with parsed JSON response
 #'
-#' @import curl
 #' @importFrom httr GET content
 #' @importFrom jsonlite fromJSON
 #'
