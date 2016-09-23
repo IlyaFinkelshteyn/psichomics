@@ -155,11 +155,14 @@ modTabPanel <- function(title, icon=NULL, ..., menu=FALSE) {
 #' All the CSS modifications are in the file "shiny/www/styles.css"
 #' @importFrom shinyjs useShinyjs
 #' @importFrom shiny includeCSS includeScript conditionalPanel div h4 icon
-#' shinyUI navbarPage tagAppendChild tagAppendAttributes
+#' shinyUI navbarPage tagAppendChild tagAppendAttributes addResourcePath
 #' @return HTML elements
 appUI <- function() {
     uiList <- getUiFunctions(paste, "app", modTabPanel,
                              priority=c("dataUI", "analysesUI"))
+    
+    # Include shinyBS support
+    addResourcePath("sbs", system.file("www", package="shinyBS"))
     
     header <- tagList(
         includeCSS(insideFile("shiny", "www", "styles.css")),
