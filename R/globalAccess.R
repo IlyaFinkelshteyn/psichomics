@@ -1,52 +1,107 @@
 ## Functions to get and set globally accessible variables
 
 #' @include utils.R 
+#' @importFrom shiny reactiveValues
 NULL
 
-# Global variable with all the data of a session
-sharedData <- reactiveValues()
+#' Global variable with all the data of a session
+#' 
+#' @importFrom shiny reactiveValues
+#' 
+#' @return Object to store reactive values
+sharedData <- shiny::reactiveValues()
 
 #' Get global data
+#' 
+#' @importFrom shiny reactive
+#' 
 #' @return Variable containing all data of interest
-getData <- reactive(sharedData$data)
+getData <- function() {
+    reactive(sharedData$data)()
+}
 
 #' Get number of cores to use
+#' 
+#' @importFrom shiny reactive
+#' 
 #' @return Numeric value with the number of cores to use
-getCores <- reactive(sharedData$cores)
+getCores <- function() {
+    reactive(sharedData$cores)()
+}
 
 #' Get number of significant digits
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return Numeric value regarding the number of significant digits
-getSignificant <- reactive(sharedData$significant)
+getSignificant <- function() {
+    reactive(sharedData$significant)()
+}
 
 #' Get number of decimal places
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return Numeric value regarding the number of decimal places
-getPrecision <- reactive(sharedData$precision)
+getPrecision <- function() {
+    reactive(sharedData$precision)()
+}
 
 #' Get selected alternative splicing event's identifer
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return Alternative splicing event's identifier as a string
-getEvent <- reactive(sharedData$event)
+getEvent <- function() {
+    reactive(sharedData$event)()
+}
 
 #' Get available data categories
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return Name of all data categories
-getCategories <- reactive(names(getData()))
+getCategories <- function() {
+    reactive(names(getData()))()
+}
 
 #' Get selected data category
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return Name of selected data category
-getCategory <- reactive(sharedData$category)
+getCategory <- function() {
+    reactive(sharedData$category)()
+}
 
 #' Get data of selected data category
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return If category is selected, returns the respective data as a data frame;
 #' otherwise, returns NULL
-getCategoryData <- reactive(
-    if(!is.null(getCategory())) getData()[[getCategory()]])
+getCategoryData <- function() {
+    reactive(
+        if(!is.null(getCategory())) getData()[[getCategory()]])()
+}
 
 #' Get selected dataset
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return List of data frames
-getActiveDataset <- reactive(sharedData$activeDataset)
+getActiveDataset <- function() {
+    reactive(sharedData$activeDataset)()
+}
 
 #' Get clinical data of the data category
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return Data frame with clinical data
-getClinicalData <- reactive(getCategoryData()[["Clinical data"]])
+getClinicalData <- function() {
+    reactive(getCategoryData()[["Clinical data"]])()
+}
 
 #' Get junction quantification data
 #' @note Needs to be called inside reactive function
@@ -63,8 +118,13 @@ getJunctionQuantification <- function(category=getCategory()) {
 }
 
 #' Get alternative splicing quantification of the selected data category
+#' 
+#' @importFrom shiny reactiveValues
+#' 
 #' @return Data frame with the alternative splicing quantification
-getInclusionLevels <- reactive(getCategoryData()[["Inclusion levels"]])
+getInclusionLevels <- function() {
+    reactive(getCategoryData()[["Inclusion levels"]])()
+}
 
 #' Get data from global data
 #' @param ... Arguments to identify a variable
