@@ -15,13 +15,13 @@ Description: Automatically retrieve data from RNA-Seq sources such as The Cancer
     Genome Atlas or load your own files and process the data. This tool allows
     you to analyse and visualise alternative splicing.
 Depends:
-    R (>= 3.2),
-    shiny (>= 0.14),
-    shinyBS
+    R (>= 3.2)
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 5.0.1
 Imports:
+    shiny (>= 0.14),
+    shinyBS,
     data.table,
     digest,
     DT (>= 0.2),
